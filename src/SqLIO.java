@@ -17,8 +17,7 @@ import java.util.ArrayList;
         ArrayList<String> series = new ArrayList<>();
 
         try {
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
+            
 
             ResultSet resultSet = statement.getResultSet();
 
@@ -29,17 +28,14 @@ import java.util.ArrayList;
                 String seasons = resultSet.getString("seasons");
                 String start = resultSet.getString("year_start");
                 String end = resultSet.getString("year_end");
-                boolean bAge = resultSet.getBoolean("age");
+                
 
-                String age = "false";
-                if (bAge) {
-                    age = "true";
+                
                 }
                 String range = start + "-" + end;
 
                 series.add(ID);
                 series.add(title);
-                series.add(age);
                 series.add(range);
                 series.add(rating);
                 series.add(seasons);
@@ -60,8 +56,7 @@ import java.util.ArrayList;
         String query = ("select categories from "+ type +" join "+type+"_categories on "+type+"_categories."+type+"_id = "+type+".ID join categories on "+type+"_categories.category_id = categories.ID where "+type+".id = "+ i + "");
         String categories = "";
         try {
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
+            
 
             ResultSet resultSet = statement.getResultSet();
 
@@ -80,8 +75,7 @@ import java.util.ArrayList;
         ArrayList<String> movie = new ArrayList<>();
 
         try {
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
+            
 
             ResultSet resultSet = statement.getResultSet();
 
@@ -90,17 +84,13 @@ import java.util.ArrayList;
                 String title = resultSet.getString("title");
                 String year = resultSet.getString("year");
                 String rating = resultSet.getString("rating");
-                boolean bAge = resultSet.getBoolean("age");
-                String age = "false";
-                if (bAge) {
-                    age = "true";
+                
                 }
 
                 movie.add(ID);
                 movie.add(title);
                 movie.add(year);
                 movie.add(rating);
-                movie.add(age);
             }
 
         } catch (SQLException e) {
@@ -121,20 +111,16 @@ import java.util.ArrayList;
         ArrayList<String> user = new ArrayList<>();
 
         try {
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
-
+            
             ResultSet resultSet = statement.getResultSet();
 
             while(resultSet.next()) {
                 String ID = resultSet.getString("ID");
-                String age = resultSet.getString("age");
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
                 user.add(ID);
                 user.add(username);
                 user.add(password);
-                user.add(age);
             }
 
         } catch (SQLException e) {
@@ -160,8 +146,7 @@ import java.util.ArrayList;
         try {
             String query = ("Select * from categories where categories = '"+ field +"'");
             System.out.println(query);
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
+           
             ResultSet resultSet = statement.getResultSet();
             while(resultSet.next()) {
                 id = resultSet.getInt("ID");
@@ -171,8 +156,7 @@ import java.util.ArrayList;
         }
         try {
             String query = ("Select * from movies_categories where category_id = "+ id + "");
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
+          
             ResultSet resultSet = statement.getResultSet();
             while(resultSet.next()) {
                 ids.add(resultSet.getInt("movies_id"));
@@ -198,9 +182,7 @@ import java.util.ArrayList;
         String query = ("select * from "+ table +" where "+column+" ="+i+"");
         String list = "";
         try {
-            Statement statement = this.connection.createStatement();
-            statement.execute(query);
-
+           
             ResultSet resultSet = statement.getResultSet();
 
             while(resultSet.next()) {
@@ -225,8 +207,7 @@ import java.util.ArrayList;
     public void writeUserData(User u) {
         String query = ("insert into users values ("+u.getID()+",'"+ u.getUsername()+"','"+u.getPassword()+"',"+u.getAge()+")");
         try {
-            Statement statement = this.connection.createStatement();
-            statement.executeUpdate(query);
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -239,15 +220,13 @@ import java.util.ArrayList;
         for (int i = 0; i < u.getWatchedSeries().size(); i++) {
         try{
             String query = ("delete from series_watched where user_id = "+ u.getID() +" and series_id = "+ u.getWatchedSeries().get(i) +"");
-            Statement statement = this.connection.createStatement();
-            statement.executeUpdate(query);
+          
         }catch (SQLException e) {
             e.printStackTrace();
         }
         try {
             String query = ("insert into series_watched values("+ u.getWatchedSeries().get(i) +", "+  u.getID() +")");
-            Statement statement = this.connection.createStatement();
-            statement.executeUpdate(query);
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -260,15 +239,13 @@ import java.util.ArrayList;
         for (int i = 0; i < u.getWatchedMovies().size(); i++) {
             try {
                 String query = ("delete from movies_watched where user_id = "+ u.getID() +" and movie_id = "+ u.getWatchedMovies().get(i)+ "");
-                Statement statement = this.connection.createStatement();
-                statement.executeUpdate(query);
+             
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
                 String query = ("insert into movies_watched values("+ u.getWatchedMovies().get(i) +", "+ u.getID() +")");
-                Statement statement = this.connection.createStatement();
-                statement.executeUpdate(query);
+           
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -277,15 +254,13 @@ import java.util.ArrayList;
         for (int i = 0; i < u.getSavedSeries().size(); i++) {
             try{
                 String query = ("delete from series_saved where user_id = "+ u.getID() +" and series_id = "+ u.getSavedSeries().get(i) +"");
-                Statement statement = this.connection.createStatement();
-                statement.executeUpdate(query);
+              
             }catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
                 String query = ("insert into series_saved values("+ u.getID() +", "+ u.getSavedSeries().get(i) +")");
-                Statement statement = this.connection.createStatement();
-                statement.executeUpdate(query);
+                
             } catch (SQLException e) {
                 e.printStackTrace();
             }
