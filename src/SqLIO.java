@@ -5,18 +5,6 @@ import java.util.ArrayList;
 
 
 
-public class SQLIO implements Expresso {
-
-    public SQLIO() {
-        try
-        {
-            connection = DriverManager.getConnection(url, username, password);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
 
     private Connection connection;
