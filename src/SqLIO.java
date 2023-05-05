@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 
 
-    private Connection connection;
-
     private String url = "jdbc:mysql://localhost/streaming?" + "autoReconnect=true&useSSL=false";
     private String username = "root";
     private String password = "password";
